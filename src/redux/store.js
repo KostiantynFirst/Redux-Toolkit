@@ -5,4 +5,6 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // const enhancer = devToolsEnhancer();
 // export const store = createStore(rootReducer, enhancer);
-export const store = configureStore(rootReducer);
+export const store = configureStore({
+    reducer: rootReducer
+});

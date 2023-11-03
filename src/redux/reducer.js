@@ -1,4 +1,5 @@
 import { statusFilters } from './constants';
+import { addTask, deleteTask, toggleCompleted, toggleAllCompleted, deleteAllCompleted, setStatusFilter } from './actions';
 
 const  taskInitialStates = [
     { id: 0, text: "Learn HTML and CSS", completed: true },
@@ -10,20 +11,20 @@ const  taskInitialStates = [
 
 export const tasksReducer = (state = taskInitialStates, action) => {
     switch (action.type) {
-        case "tasks/addTask":
+        case addTask.type:
           return [...state, action.payload];
 
-        case 'tasks/deleteTask': 
+        case deleteTask.type: 
             return state.filter(task => task.id !== action.payload);
 
-        case 'tasks/toggleCompleted': 
+        case toggleCompleted.type: 
             return state.map(task => {
                     if(task.id !== action.payload) return task;
                     return  {...task, completed: !task.completed,
                 };
             });
 
-        case 'tasks/toggleAllCompleted': 
+        case toggleAllCompleted.type: 
             return state.map(task => {
                 if (task.completed) {
                     return task;
@@ -34,7 +35,7 @@ export const tasksReducer = (state = taskInitialStates, action) => {
                 }
             });
 
-        case 'tasks/deleteAllCompleted':
+        case deleteAllCompleted.type:
             return state.filter(task => !task.completed)
 
         default:
@@ -49,7 +50,7 @@ const filtersInitialStates = {
 
 export const filtersReducer = (state = filtersInitialStates, action) => {
         switch (action.type) {
-            case "filters/setStatusFilter": 
+            case setStatusFilter.type: 
                 return {
                 ...state,
                 status: action.payload,

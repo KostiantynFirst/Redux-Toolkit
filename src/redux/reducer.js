@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { statusFilters } from './constants';
 
 const  taskInitialStates = [
@@ -9,7 +8,7 @@ const  taskInitialStates = [
     { id: 4, text: "Build amazing apps", completed: false },
   ]
 
-const tasksReducer = (state = taskInitialStates, action) => {
+export const tasksReducer = (state = taskInitialStates, action) => {
     switch (action.type) {
         case "tasks/addTask":
           return [...state, action.payload];
@@ -48,7 +47,7 @@ const filtersInitialStates = {
     status: statusFilters.all
 }
 
-const filtersReducer = (state = filtersInitialStates, action) => {
+export const filtersReducer = (state = filtersInitialStates, action) => {
         switch (action.type) {
             case "filters/setStatusFilter": 
                 return {
@@ -62,16 +61,3 @@ const filtersReducer = (state = filtersInitialStates, action) => {
     }
 }
 
-export const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    filter: filtersReducer,
-})
-
-
-
-// export const rootReducer = (state = {}, action) => {
-//     return {
-//         tasks: tasksReducer(state.tasks, action),
-//         filter: filtersReducer(state.filter, action),
-//     }
-// }

@@ -12,7 +12,7 @@ const  taskInitialStates = [
 
 export const tasksReducer = createReducer(taskInitialStates, {
     [addTask](state, action) {
-        return [...state, action.payload];
+        state.push(action.payload);
      },
     [deleteTask](state, action) { 
         return state.filter(task => task.id !== action.payload);

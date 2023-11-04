@@ -41,17 +41,11 @@ const filtersInitialStates = {
     status: statusFilters.all
 }
 
-export const filtersReducer = (state = filtersInitialStates, action) => {
-        switch (action.type) {
-            case setStatusFilter.type: 
-                return {
-                ...state,
-                status: action.payload,
-                };
-   
-
-        default: 
-            return state;
+export const filtersReducer = createReducer(filtersInitialStates, {
+    [setStatusFilter](state, action) {
+        state.status = action.payload;
     }
-}
+})
+
+
 

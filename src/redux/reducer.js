@@ -18,62 +18,24 @@ export const tasksReducer = createReducer(taskInitialStates, {
         return state.filter(task => task.id !== action.payload);
     },
     [toggleCompleted](state, action) { 
-        return state.map(task => {
-            if(task.id !== action.payload) return task;
-            return  {...task, completed: !task.completed,
-        };
-    });
-
-    },
-    [toggleAllCompleted](state, action) { 
-        return state.map(task => {
-            if (task.completed) {
-                return task;
+        for (const task of state) {
+            if (task.id === action.payload) {
+                task.completed = !task.completed;
+                break;
             }
-            return {
-                ...task,
-                completed: true,
-            }});
+        }
+    },
+    [toggleAllCompleted](state) { 
+        for (const task of state) {
+            if(!task.completed) {
+                task.completed = true;
+            }
+        }
      },
-    [deleteAllCompleted](state, action) { 
+    [deleteAllCompleted](state) { 
         return state.filter(task => !task.completed)
      },
 })
-
-// export const tasksReducer = (state = taskInitialStates, action) => {
-//     switch (action.type) {
-//         case addTask.type:
-//           return [...state, action.payload];
-
-//         case deleteTask.type: 
-//             return state.filter(task => task.id !== action.payload);
-
-//         case toggleCompleted.type: 
-//             return state.map(task => {
-//                     if(task.id !== action.payload) return task;
-//                     return  {...task, completed: !task.completed,
-//                 };
-//             });
-
-//         case toggleAllCompleted.type: 
-//             return state.map(task => {
-//                 if (task.completed) {
-//                     return task;
-//                 }
-//                 return {
-//                     ...task,
-//                     completed: true,
-//                 }
-//             });
-
-//         case deleteAllCompleted.type:
-//             return state.filter(task => !task.completed)
-
-//         default:
-//             return state;
-//         }
-
-// }
 
 const filtersInitialStates = {
     status: statusFilters.all
